@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futebol App</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <header class="header">
+    <nav></nav>
+  </header>
+
+  <main class="selecao container">
+    <h1>Futebol App</h1>
+    <div class="painel-controle">
+      <button id="btn-start">Começar</button>
+    </div>
+    <div class="selecao-conteudo">
+      <div class="coluna-esquerda">
+        <div class="form-group hide">
+          <label for="selecao-formacao-time-preto">
+          </label>
+          <select name="time-preto" id="selecao-formacao-time-preto">
+            <option value="">Formação:</option>
+            <option value="1">2-3-1</option>
+            <option value="2">3-2-1</option>
+          </select>
+        </div>
+        <h2>Time Preto</h2>
+        <p>Capitão: Fulano</p>
+        <ol class="escalacao-time-esquerda">
+          <li>
+            <span class="nome-jogador">1 - Jogador 5</span>
+            <span>G</span>
+            <span>5.9</span>
+          </li>
+          <li>
+            <span class="nome-jogador">2 - Jogador 6</span>
+            <span>Z</span>
+            <span>7.5</span>
+          </li>
+        </ol>
+        <span class="media-time">Média: 6.7</span>
+      </div>
+
+      <div class="selecao-campo">
+        <div class="selecao-campo-esquerdo">
+          <div class="area-esquerda">
+            <span id="goleiro-esquerda" class="jogador preto">G</span>
+          </div>
+          <div class="zaga-esquerda">
+            <span id="zagueiro1-esquerda" class="jogador preto">Z</span>
+            <span id="zagueiro2-esquerda" class="jogador preto">Z</span>
+          </div>
+          <div class="meio-esquerda">
+            <span class="jogador preto" id="alae-esquerdo">
+              AE
+            </span>
+            <span class="jogador preto" id="meia-esquerdo">
+              M
+            </span>
+            <span class="jogador preto" id="alad-esquerdo">
+              AD
+            </span>
+          </div>
+          <div class="ataque-esquerda">
+            <span id="atacante" class="jogador preto">A</span>
+          </div>
+        </div>
+        <div class="selecao-campo-direito">
+          <div class="ataque-direito">
+            <span id="atacante" class="jogador branco">A</span>
+          </div>
+          <div class="meio-direito">
+            <span class="jogador branco" id="alae-direito">
+              AE
+            </span>
+            <span class="jogador branco" id="meia-direito">
+              M
+            </span>
+            <span class="jogador branco" id="alad-direito">
+              AD
+            </span>
+          </div>
+
+          <div class="zaga-direito">
+            <span id="zagueiro1-direito" class="jogador branco">Z</span>
+            <span id="zagueiro2-direito" class="jogador branco">Z</span>
+          </div>
+
+          <div class="area-direito">
+            <span id="goleiro-direito" class="jogador branco">G</span>
+          </div>
+        </div>
+      </div>
+      <div class="coluna-direita">
+        <div class="form-group hide">
+          <label for="selecao-formacao-time-branco">
+            <select name="time-branco" id="selecao-formacao-time-branco">
+              <option value="">Formação:</option>
+              <option value="1">2-3-1</option>
+              <option value="2">3-2-1</option>
+            </select>
+          </label>
+
+        </div>
+        <h2>Time Branco</h2>
+        <p>Capitão: Beltrano</p>
+        <ol class="escalacao-time-esquerda">
+          <li>
+            <span class="nome-jogador">1 - Jogador 5</span>
+            <span>G</span>
+            <span>5.9</span>
+          </li>
+          <li>
+            <span class="nome-jogador">2 - Jogador 6</span>
+            <span>Z</span>
+            <span>7.5</span>
+          </li>
+        </ol>
+      </div>
+      <p class="selecao-display hide">Time <span id="capitao-escolha"></span>, escolha um jogador:</p>
+      <table class="selecao-lista-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Posição primária</th>
+            <th>Posição secundária</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><img src="https://avatars.githubusercontent.com/u/40571653?v=4" class="img-jogador" /> </td>
+            <td>Jogador 1</td>
+            <td>Z</td>
+            <td>AD</td>
+            <td>5.7</td>
+          </tr>
+          <tr>
+            <td><img src="https://avatars.githubusercontent.com/u/71772559?s=100&v=4" class="img-jogador" /> </td>
+            <td>Jogador 2</td>
+            <td>Z</td>
+            <td>M</td>
+            <td>6.7</td>
+          </tr>
+          <tr>
+            <td><img src="https://avatars.githubusercontent.com/u/14251143?s=100&v=4" class="img-jogador" /> </td>
+            <td>Jogador 3</td>
+            <td>Z</td>
+            <td>AD</td>
+            <td>7.3</td>
+          </tr>
+          <tr>
+            <td><img src="https://avatars.githubusercontent.com/u/35575092?s=100&v=4" class="img-jogador" /> </td>
+            <td>Jogador 4</td>
+            <td>Z</td>
+            <td>A</td>
+            <td>7.5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
