@@ -256,8 +256,11 @@ select {
 }
 
 /* LISTA JOGADORES */
-.selecao-lista-table {
+.selecao-lista {
   grid-column: 2;
+}
+
+.selecao-lista-table {  
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
@@ -322,8 +325,7 @@ select {
   margin-left: 12px;
 }
 
-.selecao-display {
-  grid-column: 2;
+.selecao-display {  
   font-size: 2rem;
 }
 

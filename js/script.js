@@ -1,64 +1,52 @@
-/* quando clicar no botao start:
-- Sortear capitao que comeca
-- Ativar primeiro jogador
-- exibir o nome do capitao 
+/* 
+** Sortear Time que começa
+quando clicar no botao start:
+[x] Sortear capitao que comeca
+[x] exibir o nome do time
+[x] Ativar primeiro jogador
+
+** Confirmar escolha de jogador
+quando clicar no botao start:
+[x] Adicionar jogador no array
+[x] Eliminar jogador da tabela
+[x] Mudar time
+[] Ativar o proximo jogador
+
 */
 
-// class time {
-//   constructor(cor){
-//     this.jogadores = document.querySelectorAll('.jogador.preto');
-//     this.jogadorAtivo = document.querySelector('.jogador.preto.ativo');
-//     this.jogadoresSelecionados = 0;
-    
-//     this.removerAtivo = this.jogadores.forEach(item => item.classList.remove('ativo'));
-        
-//     ativarJogador() {
-//      this.jogadorAtivo = document.querySelector('.jogador.preto.ativo');
-//     }
 
-//     proximoJogador() {
-//       this.jogadoresSelecionados++;
-//       console.log(this.jogadoresSelecionados)
-//     }
-//   }
-// }
+class Time {
+  constructor(cor){
+    this.cor = cor;
+    this.jogadores = document.querySelectorAll(`.jogador.${cor}`);
+    this.jogadorAtivo = document.querySelector(`.jogador.${cor}.ativo`);
+    this.jogadoresSelecionados = [];           
+  }
 
-const timePreto = {
-  jogadores: document.querySelectorAll('.jogador.preto'),
-  jogadorAtivo: document.querySelector('.jogador.preto.ativo'),
-  jogadoresSelecionados: 0,
-  removerAtivo: function() {
+  removerAtivo() {
     this.jogadores.forEach(item => item.classList.remove('ativo'))
-  },
-  ativarJogador: function() {
-    this.jogadorAtivo = document.querySelector('.jogador.preto.ativo');
-  },
+  }
+
+  ativarJogador() {   
+    this.jogadorAtivo = document.querySelector(`.jogador.${this.cor}.ativo`);    
+   }
+
   proximoJogador() {
     this.jogadoresSelecionados++;
     console.log(this.jogadoresSelecionados)
-  }
+  }  
 }
 
-const timeBranco = {
-  jogadores: document.querySelectorAll('.jogador.branco'),
-  jogadorAtivo: document.querySelector('.jogador.branco.ativo'),
-  jogadoresSelecionados: 0,
-  removerAtivo: function () {
-    this.jogadores.forEach(item => item.classList.remove('ativo'))
-  },
-  ativarJogador: function() {
-    this.jogadorAtivo = document.querySelector('.jogador.branco.ativo');
-  },
-  proximoJogador() {
-    this.jogadoresSelecionados++;
-    console.log(this.jogadoresSelecionados)
-  }
-}
+const timePreto = new Time('preto');
+const timeBranco = new Time('branco');
 
 const tableRow = document.querySelectorAll('tbody tr');
 const btnStart = document.querySelector('#btn-start');
+const btnConfirmaJogador = document.querySelector('#btn-confirmar-jogador');
 const capitaoEscolha = document.querySelector('#capitao-escolha');
-const selecaoDisplay = document.querySelector('.selecao-display');
+const selecaoLista = document.querySelector('.selecao-lista');
+const campoEsquerdo = document.querySelector('.selecao-campo-esquerdo');
+const campoDireito = document.querySelector('.selecao-campo-direito');
 
 function handleStart() {
   const numSorted = (Math.floor(Math.random() * 2));  
@@ -71,12 +59,12 @@ function handleStart() {
     handleFirtPlayerSelect(1);
   }
   
-  selecaoDisplay.classList.remove('hide'); 
+  selecaoLista.classList.remove('hide');
 }
 
 function handleFirtPlayerSelect(time){
   if(time === 0) {
-    timePreto.removerAtivo();
+    timePreto.removerAtivo();    
     timePreto.jogadores[0].classList.add('ativo');
     timeBranco.removerAtivo();
   } else {
@@ -90,18 +78,78 @@ function handleSelectPlayer(event) {
   const img = event.currentTarget.children[0].innerHTML 
 
   if (capitaoEscolha.innerText === 'Preto') {
-    timePreto.ativarJogador()
-    console.log(timePreto)
-    timePreto.jogadorAtivo.innerHTML = img;
+    timePreto.ativarJogador()    
+    timePreto.jogadorAtivo.innerHTML = img;    
   } else if (capitaoEscolha.innerText === 'Branco') {
-    timeBranco.ativarJogador()
-    console.log(timeBranco)
+    timeBranco.ativarJogador()    
     timeBranco.jogadorAtivo.innerHTML = img;
   }
 
+  btnConfirmaJogador.classList.remove('hide');
   removeActiveRow();
   
   event.currentTarget.classList.toggle('active-row')  
+}
+
+function handleConfirmaJogador(event){
+  if (capitaoEscolha.innerText === 'Preto'){
+    timePreto.jogadoresSelecionados.push(timePreto.jogadorAtivo);
+  }else {
+    timeBranco.jogadoresSelecionados.push(timeBranco.jogadorAtivo);
+  }
+  btnConfirmaJogador.classList.add('hide');
+  removeActiveTablePlayer();
+  changeTeam();
+}
+
+function changeTeam() {
+  if (capitaoEscolha.innerText === 'Preto') {       
+    capitaoEscolha.innerText = 'Branco'
+    timePreto.removerAtivo();    
+  } else {    
+    capitaoEscolha.innerText = 'Preto'
+    timeBranco.removerAtivo();    
+  }
+  activeNextPlayer();
+}  
+
+function activeNextPlayer(){
+  const jogadoresEsquerdos = campoEsquerdo.querySelectorAll('.jogador');
+  const jogadoresDireitos = campoDireito.querySelectorAll('.jogador');
+  
+  let ativo = 0;
+  
+  if (capitaoEscolha.innerText === 'Preto') {
+    jogadoresEsquerdos.forEach( item => {    
+      let itemContent = item.innerHTML   
+      
+      if (!itemContent.includes('img') && ativo === 0){      
+        item.classList.add('ativo');
+        ativo = 1;    
+      }   
+      
+    })
+  } else {
+    console.log(jogadoresDireitos.length);
+    
+    let i = 6;
+    while ( i >= 0){
+      console.log(i, jogadoresDireitos)
+      let itemContent = jogadoresDireitos[i].innerHTML; 
+      
+      if (!itemContent.includes('img') && ativo === 0){      
+        jogadoresDireitos[i].classList.add('ativo');
+        ativo = 1;    
+      }
+      i--;   
+    }         
+  }
+}  
+
+
+function removeActiveTablePlayer(){
+  const activeTableRow = document.querySelector('tbody .active-row');  
+  activeTableRow.remove();
 }
 
 function removeActiveRow() {
@@ -109,6 +157,7 @@ function removeActiveRow() {
 }
 
 btnStart.addEventListener('click', handleStart);
+btnConfirmaJogador.addEventListener('click', handleConfirmaJogador);
 
 tableRow.forEach( item => item.addEventListener('click', handleSelectPlayer));
 
